@@ -1,17 +1,20 @@
 <template>
-  <div 
+  <div
     v-show="isSelected"
     class="tab__pane"
-    >
+  >
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'tab',
+  name: 'Tab',
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -31,6 +34,17 @@ export default {
     //   this.parent.setLine();
     // }
   },
+  created() {
+    this.findParent('Tabs');
+  },
+  mounted() {
+    const { tabs } = this.parent;
+    const index = this.parent.$slots.default.indexOf(this.$vnode);
+    tabs.splice(index === -1 ? tabs.length : index, 0, this);
+  },
+  beforeDestroy() {
+    this.parent.tabs.splice(this.index, 1);
+  },
   methods: {
     findParent(name) {
       let parent = this.$parent;
@@ -43,21 +57,11 @@ export default {
       }
     },
   },
-  created() {
-    this.findParent('tabs');
-  },
-  mounted() {
-    const { tabs } = this.parent;
-    const index = this.parent.$slots.default.indexOf(this.$vnode);
-    tabs.splice(index === -1 ? tabs.length : index, 0, this);
-  },
-  beforeDestroy() {
-    this.parent.tabs.splice(this.index, 1);
-  },
 };
 </script>
 
-<style>
-.tab__pane {
-}
+<style scoped>
+/* .tab__pane {
+
+} */
 </style>

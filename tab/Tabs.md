@@ -4,12 +4,12 @@
 
 默认情况下启用第一个标签，可以通过`v-model`绑定当前激活的标签索引
 
-```
+```js
 <tabs v-model="active">
   <tab title="标签 1">内容 1</tab>
   <tab title="标签 2">内容 2</tab>
   <tab title="标签 3">内容 3</tab>
-</van-tabs>
+</tabs>
 export default {
   data() {
     return {
@@ -18,14 +18,16 @@ export default {
   }
 }
 ```
+
 ### 点击事件
 
 可以在tabs上绑定click事件和change事件，事件传参为标签对应的索引和标题
 
-```
+```js
 <tabs @click="handleClick"></tabs>
 <tabs @change="handleChange"></tabs>
 ```
+
 ### Tabs API
 
 | 属性名      | 类型   | 默认值 | 说明 |
@@ -39,26 +41,30 @@ export default {
 ### Tab API
 | 属性名      | 类型   | 默认值 | 说明 |
 | ----------- | ------ | ------ | ---- |
-| title     | String | -      | 当前标签的索引 |
+| title     | String | -      | tab页的标题 |
 
 ### code
 
 #### tab
-```
+
+```js
 <template>
-  <div 
+  <div
     v-show="isSelected"
     class="tab__pane"
-    >
+  >
     <slot />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'tab',
+  name: 'Tab',
   props: {
-    title: String,
+    title: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -78,6 +84,17 @@ export default {
     //   this.parent.setLine();
     // }
   },
+  created() {
+    this.findParent('Tabs');
+  },
+  mounted() {
+    const { tabs } = this.parent;
+    const index = this.parent.$slots.default.indexOf(this.$vnode);
+    tabs.splice(index === -1 ? tabs.length : index, 0, this);
+  },
+  beforeDestroy() {
+    this.parent.tabs.splice(this.index, 1);
+  },
   methods: {
     findParent(name) {
       let parent = this.$parent;
@@ -90,46 +107,38 @@ export default {
       }
     },
   },
-  created() {
-    this.findParent('tabs');
-  },
-  mounted() {
-    const { tabs } = this.parent;
-    const index = this.parent.$slots.default.indexOf(this.$vnode);
-    tabs.splice(index === -1 ? tabs.length : index, 0, this);
-  },
-  beforeDestroy() {
-    this.parent.tabs.splice(this.index, 1);
-  },
 };
 </script>
 
-<style>
-.tab__pane {
-}
+<style scoped>
+/* .tab__pane {
+
+} */
 </style>
+
 
 ```
 
 #### tabs
-```
+
+```js
 <template>
   <div class="tabs">
     <div class="tabs__nav">
       <div
-       class="tabs__line"
-       :style="lineStyle"
-      ></div>
-      <div 
-        v-for="(tab, index) in tabs" 
-        :key="index" 
+        :style="lineStyle"
+        class="tabs__line"
+      />
+      <div
+        v-for="(tab, index) in tabs"
         ref="tabs"
-        @click="onClick(index)"
-        class="tab"
+        :key="index"
         :style="getTabStyle(tab, index)"
         :class="{'tab--active': index === curActive,}"
+        class="tab"
+        @click="onClick(index)"
       >
-        <span>{{tab.title}}</span>
+        <span>{{ tab.title }}</span>
       </div>
     </div>
     <slot/>
@@ -138,12 +147,15 @@ export default {
 
 <script>
 export default {
-  name: 'tabs',
+  name: 'Tabs',
   model: {
     prop: 'active',
   },
   props: {
-    color: String,
+    color: {
+      type: String,
+      default: 'red',
+    },
     lineWidth: {
       type: Number,
       default: null,
@@ -203,6 +215,7 @@ export default {
     },
     setActive() {},
     correctActive(active) {
+      // eslint-disable-next-line
       active = +active;
       // console.log(active, 'active');
       const exist = this.tabs.some(tab => tab.index === active);
@@ -211,7 +224,7 @@ export default {
     },
     setCurActive(active) {
       if (active !== this.curActive) {
-        console.log(this.curActive);
+        // console.log(active, 'active');
         if (this.curActive !== null) {
           this.$emit('change', active, this.tabs[active].title);
         }
@@ -261,7 +274,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .tab {
   flex: 1;
   cursor: pointer;

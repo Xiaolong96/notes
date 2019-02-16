@@ -2,19 +2,19 @@
   <div class="tabs">
     <div class="tabs__nav">
       <div
-       class="tabs__line"
-       :style="lineStyle"
-      ></div>
-      <div 
-        v-for="(tab, index) in tabs" 
-        :key="index" 
+        :style="lineStyle"
+        class="tabs__line"
+      />
+      <div
+        v-for="(tab, index) in tabs"
         ref="tabs"
-        @click="onClick(index)"
-        class="tab"
+        :key="index"
         :style="getTabStyle(tab, index)"
         :class="{'tab--active': index === curActive,}"
+        class="tab"
+        @click="onClick(index)"
       >
-        <span>{{tab.title}}</span>
+        <span>{{ tab.title }}</span>
       </div>
     </div>
     <slot/>
@@ -23,12 +23,15 @@
 
 <script>
 export default {
-  name: 'tabs',
+  name: 'Tabs',
   model: {
     prop: 'active',
   },
   props: {
-    color: String,
+    color: {
+      type: String,
+      default: 'red',
+    },
     lineWidth: {
       type: Number,
       default: null,
@@ -88,6 +91,7 @@ export default {
     },
     setActive() {},
     correctActive(active) {
+      // eslint-disable-next-line
       active = +active;
       // console.log(active, 'active');
       const exist = this.tabs.some(tab => tab.index === active);
@@ -96,7 +100,7 @@ export default {
     },
     setCurActive(active) {
       if (active !== this.curActive) {
-        console.log(this.curActive);
+        // console.log(active, 'active');
         if (this.curActive !== null) {
           this.$emit('change', active, this.tabs[active].title);
         }
@@ -146,7 +150,7 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss" scoped>
 .tab {
   flex: 1;
   cursor: pointer;
