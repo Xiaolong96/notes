@@ -39,6 +39,7 @@ export default {
 | line-height | Number | 3      | 底部条高度，单位 px |
 
 ### Tab API
+
 | 属性名      | 类型   | 默认值 | 说明 |
 | ----------- | ------ | ------ | ---- |
 | title     | String | -      | tab页的标题 |
@@ -115,7 +116,6 @@ export default {
 
 } */
 </style>
-
 
 ```
 

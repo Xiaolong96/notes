@@ -9,7 +9,6 @@
         v-for="(tab, index) in tabs"
         ref="tabs"
         :key="index"
-        :style="getTabStyle(tab, index)"
         :class="{'tab--active': index === curActive,}"
         class="tab"
         @click="onClick(index)"
@@ -25,141 +24,134 @@
 export default {
   name: 'Tabs',
   model: {
-    prop: 'active',
+    prop: 'active'
   },
   props: {
-    color: {
-      type: String,
-      default: 'red',
-    },
     lineWidth: {
       type: Number,
-      default: null,
+      default: null
     },
     lineHeight: {
       type: Number,
-      default: 3,
+      default: null
     },
     duration: {
       type: Number,
-      default: 0.3,
+      default: 0.3
     },
     active: {
       type: [Number, String],
-      default: 0,
-    },
+      default: 0
+    }
   },
-  data() {
+  data () {
     return {
       tabs: [],
       curActive: null,
-      lineStyle: {
-        backgroundColor: this.color,
-      },
-    };
+      lineStyle: {}
+    }
   },
   computed: {},
   watch: {
-    active(val) {
+    active (val) {
       if (val !== this.curActive) {
-        this.correctActive(val);
+        this.correctActive(val)
       }
     },
-    color() {
-      this.setLine();
+    tabs () {
+      this.correctActive(this.curActive || this.active)
+      this.setLine()
     },
-    tabs() {
-      this.correctActive(this.curActive || this.active);
-      this.setLine();
-    },
-    curActive() {
-      this.setLine();
-    },
+    curActive () {
+      this.setLine()
+    }
   },
-  mounted() {
-    this.correctActive(this.active);
-    this.isFirstLoaded = true;
+  mounted () {
+    this.correctActive(this.active)
+    this.isFirstLoaded = true
     this.$nextTick(() => {
-      this.isFirstLoaded = false;
-    });
+      this.isFirstLoaded = false
+    })
   },
   methods: {
-    onClick(index) {
-      const { title } = this.tabs[index];
-      this.setCurActive(index);
-      this.$emit('click', index, title);
+    onClick (index) {
+      const { title } = this.tabs[index]
+      this.setCurActive(index)
+      this.$emit('click', index, title)
     },
-    setActive() {},
-    correctActive(active) {
+    setActive () {},
+    correctActive (active) {
       // eslint-disable-next-line
       active = +active;
       // console.log(active, 'active');
-      const exist = this.tabs.some(tab => tab.index === active);
-      const defaultActive = (this.tabs[0] || {}).index || 0;
-      this.setCurActive(exist ? active : defaultActive);
+      const exist = this.tabs.some(tab => tab.index === active)
+      const defaultActive = (this.tabs[0] || {}).index || 0
+      this.setCurActive(exist ? active : defaultActive)
     },
-    setCurActive(active) {
+    setCurActive (active) {
       if (active !== this.curActive) {
-        // console.log(active, 'active');
+        // console.log(active, 'active')
         if (this.curActive !== null) {
-          this.$emit('change', active, this.tabs[active].title);
+          this.$emit('change', active, this.tabs[active].title)
         }
-        this.curActive = active;
+        this.curActive = active
       }
     },
-    setLine() {
-      const animation = this.isFirstLoaded;
+    setLine () {
+      const animation = this.isFirstLoaded
       this.$nextTick(() => {
-        const { tabs } = this.$refs;
+        const { tabs } = this.$refs
         if (!tabs || !tabs[this.curActive]) {
-          return;
+          return
         }
-        const tab = tabs[this.curActive];
-        const { lineWidth, lineHeight } = this;
+        const tab = tabs[this.curActive]
+        const { lineWidth, lineHeight } = this
+        const rem = Number.parseInt(document.querySelector('html').style.fontSize, 10)
         /* eslint-disable no-unneeded-ternary */
-        const width = lineWidth ? lineWidth : (tab.offsetWidth / 2);
+        const width = lineWidth ? lineWidth : ((tab.offsetWidth / 2) / rem)
         /* eslint-disable no-unneeded-ternary */
-        const left = tab.offsetLeft + ((tab.offsetWidth - width) / 2);
+        const left = tab.offsetLeft + ((tab.offsetWidth - width * rem) / 2)
         const lineStyle = {
-          width: `${width}px`,
-          backgroundColor: this.color,
-          transform: `translateX(${left}px)`,
-        };
+          width: `${width}rem`,
+          transform: `translateX(${left}px)`
+        }
         if (!animation) {
-          lineStyle.transitionDuration = `${this.duration}s`;
+          lineStyle.transitionDuration = `${this.duration}s`
         }
-        let height = '';
+        let height = ''
         if (lineHeight) {
-          height = `${lineHeight}px`;
+          height = `${lineHeight}rem`
         } else {
-          height = '3px';
+          height = '.03rem'
         }
-        lineStyle.height = height;
-        lineStyle.borderRadius = height;
-        this.lineStyle = lineStyle;
-      });
-    },
-    getTabStyle(tab, index) {
-      if (index === this.curActive) {
-        return {
-          color: this.color,
-          fontWeight: 'bold',
-        };
-      }
-    },
-  },
-};
+        lineStyle.height = height
+        lineStyle.borderRadius = height
+        this.lineStyle = lineStyle
+      })
+    }
+    // getTabStyle(tab, index) {
+    //   if (index === this.curActive) {
+    //     return {
+    //       color: this.color,
+    //       fontWeight: 'bold',
+    //     };
+    //   }
+    // },
+  }
+}
 </script>
 <style lang="scss" scoped>
+// @import '../../styles/theme-variables';
+$theme-color: #FF4F50;
 .tab {
   flex: 1;
   cursor: pointer;
   min-width: 0;
-  padding: 0 5px;
-  font-size: 14px;
+  padding: 0 .05rem;
+  font-size: .14rem;
   position: relative;
   color: #000;
-  line-height: 50px;
+  line-height: .44rem;
   text-align: center;
   box-sizing: border-box;
   background-color: #fff;
@@ -168,6 +160,7 @@ export default {
   }
   &--active {
     font-weight: 500!important;
+    color: $theme-color;
   }
 }
 .tabs {
@@ -183,11 +176,11 @@ export default {
   &__line {
     z-index: 1;
     left: 0;
-    bottom: 0px;
-    height: 3px;
+    bottom: 0;
+    height: .03rem;
     position: absolute;
-    border-radius: 3px;
-    background-color: red;
+    border-radius: .03rem;
+    background-color: $theme-color;
   }
 }
 </style>
