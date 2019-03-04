@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://at.alicdn.com/t/font_1009154_rsp7j4lzixo.css"
+    />
+    <!-- 使用rem -->
+    <script>
+      (function() {
+        var baseFontSize = 100;
+        var baseWidth = 375;  // 以屏375宽度且根字体大小为100px为基准
+
+        var set = function() {
+          var clientWidth =
+            document.documentElement.clientWidth || window.innerWidth;
+
+          var rem = 100;
+          if (clientWidth != baseWidth) {
+            rem = Math.floor((clientWidth / baseWidth) * baseFontSize);
+          }
+
+          document.querySelector("html").style.fontSize = rem + "px";
+        };
+        set();
+
+        window.addEventListener("resize", set);
+      })();
+    </script>
+    <style type="text/css">
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      ul,
+      ol {
+        list-style: none;
+      }
+
+      img {
+        vertical-align: top;
+        border: none;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: normal;
+      }
+      .clearfix:after {
+        content: "";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+      }
+      .clearfix {
+        *zoom: 1;
+      }
+      .f-weibo {
+        border-bottom: 0.5px solid #e6e6e6;
+      }
+      .card9 > .card-wrap {
+        padding-top: 0.08rem;
+      }
+      .card-wrap {
+        margin: 0 0.12rem;
+        height: 100%;
+      }
+      .weibo-top {
+        padding: 0 0 0 0.04rem;
+      }
+      .m-box {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+      }
+      .m-box-center {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+      .weibo-top .m-img-box {
+        width: 0.32rem;
+        height: 0.32rem;
+      }
+      .m-img-box > img {
+        width: 100%;
+        height: 100%;
+      }
+      .f-weibo .m-img-box {
+        background-color: #e6e6e6;
+      }
+      .m-avatar-box .m-img-box {
+        border-radius: 50%;
+        overflow: hidden;
+        position: relative;
+      }
+      .m-img-box {
+        display: inline-block;
+        width: 100%;
+      }
+      .m-box-col {
+        min-width: 0;
+      }
+      .m-box-dir {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .m-box-center {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+      }
+      .m-box-col {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        width: 100%;
+        display: block;
+        min-width: 0;
+      }
+      .f-weibo .weibo-top .m-text-box {
+        margin: 0.024rem 0 0.024rem 0.08rem;
+      }
+      .m-text-cut {
+        font-size: 0.15rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .m-text-box h3 {
+        color: #333;
+        line-height: 1.4;
+        font-size: 0.14rem;
+      }
+      .f-weibo .m-text-box h4 {
+        font-size: 0.12rem;
+        line-height: 1.4;
+        color: #939393;
+      }
+      .weibo-top .m-add-box {
+        display: inline-block;
+        width: 0.74rem;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        cursor: pointer;
+      }
+      .weibo-top span.m-add-box {
+        text-align: center;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 0.74rem;
+        height: 0.25rem;
+        line-height: 0.25rem;
+        cursor: pointer;
+      }
+      .weibo-top span.m-add-box:after {
+        position: absolute;
+        content: "";
+        border: 1px solid #87909a;
+        border-radius: 4px;
+        width: 200%;
+        height: 200%;
+        top: 0;
+        left: 0;
+        transform: scale(0.5);
+        transform-origin: 0 0;
+        -webkit-transform: scale(0.5);
+        -webkit-transform-origin: 0 0;
+      }
+      .weibo-top span.m-add-box h4,
+      .weibo-top span.m-add-box span {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 0.14rem;
+        color: #87909a;
+      }
+      .m-font.m-font-plus {
+        font-size: 0.14rem;
+      }
+      .weibo-main .weibo-text {
+        line-height: 1.5;
+        word-wrap: break-word;
+      }
+      .f-weibo .weibo-main .weibo-og {
+        padding: 0.12rem 0 0 0.04rem;
+        font-size: 0.16rem;
+      }
+      .card9 .weibo-main a {
+        color: #3c6e9e;
+      }
+      .f-weibo.card9 .weibo-main .media-b {
+        margin: 0.1rem 0 -0.06rem;
+      }
+      .f-weibo.card9 .weibo-main .media-b .m-auto-list {
+        margin: 0 0 -0.04rem;
+      }
+      .card9 .weibo-main .media-b .m-auto-list {
+        max-width: 100%;
+      }
+      .m-auto-list {
+        padding: 0;
+        overflow: hidden;
+        font-size: 0;
+      }
+      .card9 .weibo-main .weibo-media .m-auto-list li {
+        display: inline-block;
+        vertical-align: top;
+      }
+      .f-media .m-auto-list .m-auto-box3 {
+        width: 33.33%;
+      }
+      .f-media .m-auto-list .m-imghold-4-3 {
+        position: relative;
+        height: 0;
+        padding-bottom: 100%;
+      }
+      .f-media .m-auto-list .m-auto-box3 {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 0 0.05rem 0.05rem 0;
+      }
+      .m-img-box {
+        display: inline-block;
+        width: 100%;
+      }
+      .f-bg-img {
+        -o-object-fit: cover;
+        object-fit: cover;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .f-footer-ctrl {
+        border-top-width: 0;
+        height: 0.176rem;
+        padding: 0.16rem 0.06rem 0.16rem 0;
+        margin: 0;
+      }
+      .f-footer-ctrl .m-diy-btn {
+        color: rgba(40, 47, 60, 0.8);
+        height: 100%;
+        float: left;
+      }
+      .m-box-center-a {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+      }
+      .f-footer-ctrl .m-diy-btn + .m-diy-btn {
+        margin-left: 0.27rem;
+      }
+      .f-footer-ctrl .m-diy-btn h4 {
+        font-size: 0.14rem;
+        display: inline-block;
+        margin-top: 0;
+        margin-left: 0.04rem;
+      }
+      .f-footer-ctrl .m-diy-btn i {
+        font-size: 0.16rem;
+      }
+      .f-footer-ctrl aside {
+        float: right;
+        height: 100%;
+        color: rgba(40, 47, 60, 0.8);
+      }
+      .f-footer-ctrl aside i {
+        vertical-align: text-top;
+        font-size: 0.16rem;
+        height: 100%;
+        line-height: 100%;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card m-panel card9 f-weibo">
+      <div class="card-wrap">
+        <!---->
+        <header class="weibo-top m-box">
+          <div class="m-avatar-box m-box-center">
+            <a href="/profile/1664315105" class="m-img-box"
+              ><img
+                src="https://tvax1.sinaimg.cn/crop.0.0.512.512.180/63336ee1ly8g02wvg7f7hj20e80e874q.jpg"/>
+              <i class="m-icon m-icon-goldv-static"></i
+            ></a>
+          </div>
+          <div class="m-box-dir m-box-col m-box-center">
+            <div class="m-text-box">
+              <a href="/profile/1664315105" class=""
+                ><h3 class="m-text-cut">
+                  刘彬濠Benkho
+                  <!---->
+                  <i class="m-icon m-icon-vipl5"></i></h3
+              ></a>
+              <h4 class="m-text-cut">
+                <span class="time">7小时前</span>
+                <span class="from">
+                  来自 彬彬的iPhone 8 Plusgghfggfffffffffffffffff</span
+                >
+                <span class="time">已编辑</span>
+              </h4>
+            </div>
+          </div>
+          <div callback="follow()" class="m-add-box m-followBtn">
+            <span class="m-add-box"
+              ><span class="m-font m-font-plus">+</span>
+              <h4 class="m-text-cut">关注</h4>
+            </span>
+          </div>
+        </header>
+        <article class="weibo-main">
+          <div class="">
+            <div class="weibo-og">
+              <div class="weibo-text">
+                <a
+                  href="https://m.weibo.cn/search?containerid=231522type%3D1%26t%3D10%26q%3D%23%E5%BC%80%E5%AD%A6%E5%AD%A3%23&amp;isnewpage=1&amp;luicode=10000011&amp;lfid=102803"
+                  data-hide=""
+                  ><span class="surl-text">#开学季#</span></a
+                ><br />准备开学啦
+              </div>
+              <div>
+                <div class="weibo-media-wraps weibo-media f-media media-b">
+                  <ul class="m-auto-list">
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx1.sinaimg.cn/orj360/63336ee1gy1g0poaz84xij22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx2.sinaimg.cn/orj360/63336ee1gy1g0poaxfxjyj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                    <li class="m-auto-box3">
+                      <div class="m-img-box m-imghold-4-3">
+                        <img
+                          src="https://wx1.sinaimg.cn/orj360/63336ee1gy1g0poayirusj22ds1scnpd.jpg"
+                          class="f-bg-img"
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <footer class="f-footer-ctrl">
+          <div class="m-diy-btn m-box-center-a">
+            <i class="iconfont icon-guanzhu"></i>
+            <h4>444</h4>
+          </div>
+          <div class="m-diy-btn m-box-center-a">
+            <i class="iconfont icon-guanzhu"></i>
+            <h4>1148</h4>
+          </div>
+          <div class="m-diy-btn m-box-center-a">
+            <i class="iconfont icon-guanzhu"></i>
+            <h4>8476</h4>
+          </div>
+          <aside><i class="iconfont icon-guanzhu"></i></aside>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
